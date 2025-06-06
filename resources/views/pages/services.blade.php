@@ -13,43 +13,10 @@
 <div class="post-slider">
     <div class="post-wrapper">
         <div class="post">
-            <h1 style="position: absolute; top: 60%; left: 50%; transform: translate(-50%, -50%);" class="text-white mb-5">
-                Dịch vụ chăm súc thú cưng tại PetStore
 
-                <div class="row mt-5">
-                    <div class="col-lg-4 col-md-4">
-                        <div class="mainServices">
-                            <i class="fa fa-paw"></i>
-                            <div class="mainServices__content">
-                                <h3>Chăm Sóc</h3>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-4">
-                        <div class="mainServices">
-                            <i class="fa fa-cutlery"></i>
-                            <div class="mainServices__content">
-                                <h3>Ăn Uống</h3>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-4">
-                        <div class="mainServices">
-                            <i class="fa fa-gavel"></i>
-                            <div class="mainServices__content">
-                                <h3>Đồ chơi & Phụ kiện</h3>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </h1>
-            <img src="{{ asset('frontend/img/banner_5-scaled.jpg')}}" alt="">
+            <img src="{{ asset('frontend/img/banner2.png')}}" alt="Sacha Luxury Bags">
         </div>
     </div>
-
 </div>
 
 <div class="modal">
@@ -58,7 +25,7 @@
 
         <div class="modal-header">
             <button class="modal-close modal-toggle btn fa fa-times" style="outline: none;"></button>
-            <h2 class="modal-heading">Xem thêm</h2>
+            <h2 class="modal-heading">Tìm hiểu thêm</h2>
         </div>
 
         <style>
@@ -72,75 +39,62 @@
 
 <div class="body">
     <div class="container-fluid" style="padding: 0!important;">
-        <div style="background-image: url('frontend/img/bg_7.jpg')" class="service-banner">
+        <div style="background-image: url('frontend/img/bg_sacha.jpg')" class="service-banner">
             <div class="boxservice">
                 <h3 class="h1-title">
-                    PetStore CHĂM SÓC TOÀN DIỆN, “THIÊN ĐƯỜNG" CỦA THÚ CƯNG!
+                    SACHA - NƠI TÔN VINH PHONG CÁCH VÀ ĐẲNG CẤP!
                 </h3>
-                <p>Với mong muốn được trở thành ngôi nhà thứ hai của thú cưng, Petstore mang đến những dịch vụ lẫn sản phẩm cần thiết nhất mà mọi người bạn dễ thương này.</p>
+                <p>Với sứ mệnh mang đến những chiếc túi hiệu thời thượng, Sacha là điểm đến lý tưởng cho những ai yêu thích sự tinh tế và đẳng cấp trong từng thiết kế.</p>
 
-                <button class="btn btn-danger mt-5 modal-toggle">Xem thêm!</button>
-
-            </div>
+                <button class="btn btn-danger mt-5" onclick="window.location.href='{{ url('/') }}'">Khám phá ngay!</button>            </div>
         </div>
     </div>
 
     <div class="row">
         <div class="col-lg-4" style="padding: 15px!important;">
             <div style="background-color: #2885BA" class="service-list__content-box">
-                <img src="{{ asset('frontend/img/svmeo.jpg')}}" alt="">
+                <img src="{{ asset('frontend/img/sacha_bag1.jpg')}}" alt="Luxury Bag">
                 <h3 class="h1-title">
-                    1. PET STORE - NƠI CHĂM SÓC THÚ CƯNG CHẤT LƯỢNG!
+                    1. SACHA - ĐỈNH CAO THỜI TRANG TÚI HIỆU!
                 </h3>
-
                 <p>
-                    Những chuyến du lịch hay công tác dài ngày khiến bạn cảm thấy lo lắng khi phải gửi gắm bé yêu cho ai đó chăm nom hộ?
-                    Khách sạn thú cưng hiện đại sẽ giúp chủ nuôi hoàn toàn yên tâm khi “đặt phòng" cho bé!
+                    Sacha cung cấp các bộ sưu tập túi hiệu từ những thương hiệu danh tiếng, giúp bạn tỏa sáng trong mọi dịp, từ công việc đến các sự kiện sang trọng.
                 </p>
-
             </div>
         </div>
         <div class="col-lg-4" style="padding: 15px!important;">
             <div style="background-color: #B56256" class="service-list__content-box">
-                <img src="{{ asset('frontend/img/svmeo2.jpg')}}" alt="">
+                <img src="{{ asset('frontend/img/sacha_bag2.jpg')}}" alt="Quality Bag">
                 <h3 class="h1-title">
-                    2. PET STORE - NƠI CUNG CẤP THỨC ĂN, CÁT VỆ SINH,... CHẤT LƯỢNG NHẤT!
+                    2. CHẤT LƯỢNG VÀ SỰ TIN CẬY HÀNG ĐẦU!
                 </h3>
-
                 <p>
-                    Tại Pet Store, chúng tôi cung cấp mọi nhu cầu mà thú cưng cần với giá cả hợp lý và chất lượng hàng đầu!
-                </p>
-
-                <p>
-                    Đa dạng món ăn hấp dẫn từ các nhãn hiệu lớn trong và ngoài nước, mùi vị hấp dẫn.
+                    Mỗi sản phẩm tại Sacha đều được chọn lọc kỹ lưỡng, đảm bảo chất lượng cao cấp và thiết kế độc đáo, mang lại sự hài lòng tối đa cho khách hàng.
                 </p>
             </div>
         </div>
         <div class="col-lg-4" style="padding: 15px!important;">
             <div style="background-color: #5C9CCA" class="service-list__content-box">
-                <img src="{{ asset('frontend/img/svmeo3.jpg')}}" alt="">
+                <img src="{{ asset('frontend/img/sacha_bag3.jpg')}}" alt="Community">
                 <h3 class="h1-title">
-                    3. CUNG CẤP CÁC DỊCH VỤ SPA, TẮM RỬA,... CHẤT LƯỢNG NHẤT!
+                    3. CỘNG ĐỒNG YÊU TÚI HIỆU!
                 </h3>
-
                 <p>
-                    Những chuyến du lịch hay công tác dài ngày khiến bạn cảm thấy lo lắng khi phải gửi gắm bé yêu cho ai đó chăm nom hộ?
-                    Khách sạn thú cưng hiện đại sẽ giúp chủ nuôi hoàn toàn yên tâm khi “đặt phòng" cho bé!
+                    Sacha không chỉ là nơi mua sắm, mà còn là cộng đồng để những người yêu túi hiệu chia sẻ đam mê, phong cách và cảm hứng thời trang.
                 </p>
             </div>
         </div>
-
     </div>
 
     <div class="service-text mb30">
         <div class="service-text__content">
             <h2 class="h2-title">
-            </h2><h2 class="h2-title">Chăm sóc toàn diện, tận tâm và xuất phát từ tình yêu với thú cưng chính là tôn chỉ của mọi dịch vụ luôn sẵn sàng đón tiếp quý khách!</h2>
+                Tinh tế, đẳng cấp và đam mê thời trang là những giá trị cốt lõi mà Sacha mang đến cho từng khách hàng!
+            </h2>
         </div>
 
         <div class="d-flex justify-content-center align-items-center">
-            <img class="banner-service" src="{{ asset('frontend/img/svbg.jpg')}}" alt="">
-
+            <img class="banner-service" src="{{ asset('frontend/img/sacha_banner.jpg')}}" alt="Sacha Brand">
         </div>
     </div>
 </div>

@@ -40,7 +40,7 @@
       <nav id="sidebar" class="sidebar js-sidebar">
         <div class="sidebar-content js-simplebar">
           <a class="sidebar-brand" href="{{URL::to('/dashboard')}}">
-            <span class="align-middle">Shop thú cưng</span>
+            <span class="align-middle">SACHA</span>
           </a>
 
           <ul class="sidebar-nav">
