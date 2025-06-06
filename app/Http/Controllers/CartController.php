@@ -248,10 +248,9 @@ class CartController extends Controller
         $vnp_OrderInfo = "Thanh toán hóa đơn phí dich vụ";
         $vnp_OrderType = 'billpayment';
 
-        $vnp_Amount = 20000000;
+        $vnp_Amount = $request->tongtien * 100;
         $vnp_Locale = 'vn';
         $vnp_IpAddr = request()->ip();
-
         $inputData = array(
             "vnp_Version" => "2.0.0",
             "vnp_TmnCode" => $vnp_TmnCode,
