@@ -34,7 +34,7 @@ RUN chown -R www-data:www-data /var/www \
 RUN rm -rf /var/www/html && ln -s /var/www/public /var/www/html
 
 # Tạo APP_KEY và cache config
-RUN cp .env.example .env && \
+RUN cp .env.docker .env && \
     php artisan key:generate && \
     php artisan config:cache && \
     php artisan route:cache
