@@ -112,7 +112,7 @@
             <div class="comment-box">
                 <textarea name="content" placeholder="Viết bình luận..." rows="3" required></textarea>
 
-                <div class="g-recaptcha" data-sitekey="6LcfEFgrAAAAADFRopPvAD1CgndBGAxk7r77pQ3Y"></div>
+                <div class="g-recaptcha" data-sitekey="{{ env('RECAPTCHA_SITE_KEY') }}"></div>
 
                 <button type="submit" class="btn-submit">Gửi bình luận</button>
             </div>
