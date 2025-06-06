@@ -129,7 +129,9 @@
                 <div class="comment-content">
                     <div class="comment-header">
                         <b class="username">{{ $comment->user->hoten }}</b>
-                        <small class="time-text">{{ \Carbon\Carbon::parse($comment->created_at)->diffForHumans() }}</small>
+                        <small class="time-text">
+                            {{ \Carbon\Carbon::parse($comment->created_at)->format('H:i:s d/m/Y') }}
+                        </small>
                     </div>
                     <p class="content-text">{{ $comment->content }}</p>
 
@@ -238,11 +240,28 @@
                     const textarea = document.createElement('textarea');
                     textarea.value = oldContent;
                     textarea.rows = 3;
+                    textarea.classList.add('edit-textarea');
 
                     contentText.replaceWith(textarea);
                     target.textContent = 'Lưu';
                     target.classList.remove('btn-edit');
                     target.classList.add('btn-save');
+
+                    const cancelBtn = document.createElement('button');
+                    cancelBtn.textContent = 'Hủy';
+                    cancelBtn.classList.add('btn-cancel');
+                    target.parentNode.insertBefore(cancelBtn, target.nextSibling);
+
+                    cancelBtn.addEventListener('click', function() {
+                        const p = document.createElement('p');
+                        p.classList.add('content-text');
+                        p.textContent = oldContent;
+                        textarea.replaceWith(p);
+                        target.textContent = 'Sửa';
+                        target.classList.remove('btn-save');
+                        target.classList.add('btn-edit');
+                        cancelBtn.remove();
+                    });
 
                     target.onclick = function() {
                         const newContent = textarea.value.trim();
@@ -270,6 +289,7 @@
                                     target.textContent = 'Sửa';
                                     target.classList.remove('btn-save');
                                     target.classList.add('btn-edit');
+                                    cancelBtn.remove();
                                 } else {
                                     alert('Cập nhật thất bại');
                                 }
