@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 
 class CommentController extends Controller
 {
@@ -33,8 +34,21 @@ class CommentController extends Controller
         $request->validate([
             'sanpham_id' => 'required|exists:sanpham,id_sanpham',
             'content' => 'required|string|max:1000',
+            'g-recaptcha-response' => 'required'
         ]);
 
+        $recaptchaResponse = $request->input('g-recaptcha-response');
+        $googleResponse = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
+            'secret' => env('RECAPTCHA_SECRET_KEY'),
+            'response' => $recaptchaResponse,
+            'remoteip' => $request->ip(),
+        ]);
+
+        $result = $googleResponse->json();
+        if (!($result['success'] ?? false)) {
+            return response()->json(['success' => false, 'message' => 'Xác minh CAPTCHA không hợp lệ'], 422);
+        }
+        
         // Kiểm tra từ ngữ thô tục
         if ($this->containsBadWords($request->content)) {
             return response()->json(['success' => false, 'message' => 'Vi phạm ngôn ngữ cộng đồng'], 422);

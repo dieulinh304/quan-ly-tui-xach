@@ -87,7 +87,7 @@
         btn.addEventListener("click", () => {
             expanded = !expanded;
             if (expanded) {
-                mota.rows = lineCount+1;
+                mota.rows = lineCount + 1;
                 btn.textContent = "Thu gọn";
             } else {
                 mota.rows = 4;
@@ -111,9 +111,13 @@
 
             <div class="comment-box">
                 <textarea name="content" placeholder="Viết bình luận..." rows="3" required></textarea>
+
+                <div class="g-recaptcha" data-sitekey="6LcfEFgrAAAAADFRopPvAD1CgndBGAxk7r77pQ3Y"></div>
+
                 <button type="submit" class="btn-submit">Gửi bình luận</button>
             </div>
         </form>
+
         @else
         <p>Bạn cần <a href="{{ route('login') }}">đăng nhập</a> để bình luận.</p>
         @endif
@@ -140,6 +144,7 @@
             @endforeach
         </div>
     </div>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -152,7 +157,10 @@
                 const content = this.content.value.trim();
                 const sanpham_id = this.sanpham_id.value;
                 if (!content) return alert('Vui lòng nhập nội dung bình luận');
-
+                const recaptchaToken = grecaptcha.getResponse();
+                if (!recaptchaToken) {
+                    return alert('Vui lòng xác minh CAPTCHA');
+                }
                 fetch("{{ route('comment.post') }}", {
                         method: 'POST',
                         headers: {
@@ -162,12 +170,14 @@
                         },
                         body: JSON.stringify({
                             sanpham_id,
-                            content
+                            content,
+                            'g-recaptcha-response': recaptchaToken
                         })
                     })
                     .then(res => res.json())
                     .then(data => {
                         if (data.success) {
+                            grecaptcha.reset();
                             const comment = data.comment;
                             const html = `
                     <div class="comment-item" data-id="${comment.id}">
