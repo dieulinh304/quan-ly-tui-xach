@@ -41,7 +41,7 @@
                     </li>
 
                     <li class="{{ request()->is('services') ? 'active' : '' }}">
-                        <a href="{{ URL::to('/services') }}">Dịch vụ</a>
+                        <a href="{{ URL::to('/services') }}">Tin tức</a>
                     </li>
 
                     <li class="{{ request()->is('donhang') ? 'active' : '' }}">
