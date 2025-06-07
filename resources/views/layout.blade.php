@@ -124,6 +124,8 @@
 
     .hover-effect i {
         transition: color 0.3s ease;
+        color: #000; /* Default color for icons */
+        font-size: 24px; /* Set icon size here */
     }
 
     .hover-effect:hover,
@@ -249,6 +251,25 @@
 
     .modal-close:hover {
         color: #333;
+    }
+
+    /* Specific styles for navbar__right elements */
+    .navbar__right > *:not(:last-child) {
+        margin-right: 25px; /* Increased space between elements */
+    }
+
+    /* Adjust logout button icon color */
+    .logout button i {
+        color: #000; /* Ensure it starts black */
+        transition: color 0.3s ease; /* Smooth transition */
+    }
+
+    /* Align user name with icons */
+    .user-info a {
+        display: flex;
+        align-items: center;
+        /* Optional: add some gap between text and icon if needed */
+        gap: 5px;
     }
 
     /* Basic responsiveness for body content */
@@ -439,14 +460,18 @@
 
             <div class="navbar__right">
                 @if (Auth::check())
-                <span class="mr-2">{{Auth::user()->hoten}}</span>
+                <div class="user-info">
+                    <a href="{{ route('profile.show') }}" class="hover-effect user-name-link">
+                        {{ Auth::user()->hoten }} <i class="fas fa-user-circle"></i>
+                    </a>
+                </div>
                 <div class="logout">
                     <form id="logoutForm" action="{{ route('logout') }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <button style="border: none; background: transparent; cursor: pointer;"
                                 type="submit" id="logoutBtn" class="hover-effect">
-                            <i class="fas fa-sign-out-alt text-primary" style="font-size: 20px;"></i>
+                            <i class="fas fa-sign-out-alt"></i>
                         </button>
                     </form>
                 </div>

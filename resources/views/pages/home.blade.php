@@ -615,34 +615,4 @@
         <img src="{{ asset('frontend/img/banner1.png')}}" />
     </div>
 </div>
-@if (isset($needLogin) && $needLogin)
-    <!-- Modal nhỏ -->
-    <div id="loginModal" style="
-        position: fixed;
-        top: 50%; left: 50%;
-        transform: translate(-50%, -50%);
-        background: white;
-        padding: 20px 30px;
-        border: 1px solid #ccc;
-        border-radius: 8px;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        z-index: 1000;
-        text-align: center;
-    ">
-        <p style="font-size: 16px; margin-bottom: 20px;">Bạn cần đăng nhập để xem đơn hàng.</p>
-        <div>
-            <a href="/login" class="btn btn-primary" style="margin-right: 10px;">Chuyển đến đăng nhập</a>
-            <button onclick="document.getElementById('loginModal').style.display='none'" class="btn btn-secondary">Hủy</button>
-        </div>
-    </div>
-
-    <!-- Overlay nền mờ -->
-    <div id="overlay" style="
-        position: fixed;
-        top: 0; left: 0;
-        width: 100%; height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        z-index: 999;
-    "></div>
-@endif
 @endsection

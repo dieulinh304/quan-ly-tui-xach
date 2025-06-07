@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
 use App\Http\Controllers\admin\{AdminController, ProductController, DanhmucController, OrderController};
 
 use App\Http\Controllers\{
@@ -10,7 +9,8 @@ use App\Http\Controllers\{
     OrderViewController,
     CartController,
     CommentController,
-    ForgotPasswordController
+    ForgotPasswordController,
+    ProfileController
 };
 
 /*
@@ -23,6 +23,12 @@ use App\Http\Controllers\{
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+//Profile
+Route::middleware(['auth'])->group(function () {
+    Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+    Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.updatePassword');
+});
 
 //Frontend
 Route::get('/', [HomeController::class, 'index']);
