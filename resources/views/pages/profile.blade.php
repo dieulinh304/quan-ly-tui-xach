@@ -35,41 +35,41 @@
                     <form action="{{ route('profile.update') }}" method="POST">
                         @csrf
                         {{-- Họ tên --}}
-                        <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Họ tên:</label>
-                            <div class="col-sm-9 d-flex align-items-center">
-                                <span id="hoten-display" class="profile-value">{{ old('hoten', $user->hoten) }}</span>
-                                <input type="text" class="form-control profile-input d-none" id="hoten-input" name="hoten" value="{{ old('hoten', $user->hoten) }}" required>
-                                <button type="button" class="btn btn-sm btn-outline-secondary ml-auto edit-btn" data-target="hoten">Thay đổi</button>
-                            </div>
-                        </div>
-                        {{-- Email --}}
-                        <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Email:</label>
-                            <div class="col-sm-9 d-flex align-items-center">
-                                <span id="email-display" class="profile-value">{{ old('email', $user->email) }}</span>
-                                <input type="email" class="form-control profile-input d-none" id="email-input" name="email" value="{{ old('email', $user->email) }}" required>
-                                <button type="button" class="btn btn-sm btn-outline-secondary ml-auto edit-btn" data-target="email">Thay đổi</button>
-                            </div>
-                        </div>
-                        {{-- Địa chỉ --}}
-                        <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Địa chỉ:</label>
-                            <div class="col-sm-9 d-flex align-items-center">
-                                <span id="diachi-display" class="profile-value">{{ old('diachi', $user->diachi) }}</span>
-                                <input type="text" class="form-control profile-input d-none" id="diachi-input" name="diachi" value="{{ old('diachi', $user->diachi) }}">
-                                <button type="button" class="btn btn-sm btn-outline-secondary ml-auto edit-btn" data-target="diachi">Thay đổi</button>
-                            </div>
-                        </div>
-                        {{-- Số điện thoại --}}
-                        <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Số điện thoại:</label>
-                            <div class="col-sm-9 d-flex align-items-center">
-                                <span id="sdt-display" class="profile-value">{{ old('sdt', $user->sdt) }}</span>
-                                <input type="text" class="form-control profile-input d-none" id="sdt-input" name="sdt" value="{{ old('sdt', $user->sdt) }}">
-                                <button type="button" class="btn btn-sm btn-outline-secondary ml-auto edit-btn" data-target="sdt">Thay đổi</button>
-                            </div>
-                        </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Họ tên:</label>
+                    <div class="col-sm-9 d-flex align-items-center">
+                        <span id="hoten-display" class="profile-value">{{ $user->hoten }}</span>
+                        <input type="text" class="form-control profile-input d-none" id="hoten-input" name="hoten" value="{{ $user->hoten }}" required>
+                        <button type="button" class="btn btn-sm btn-outline-secondary ml-auto edit-btn" data-target="hoten">Thay đổi</button>
+                    </div>
+                </div>
+                {{-- Email --}}
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Email:</label>
+                    <div class="col-sm-9 d-flex align-items-center">
+                        <span id="email-display" class="profile-value">{{ $user->email }}</span>
+                        <input type="email" class="form-control profile-input d-none" id="email-input" name="email" value="{{ $user->email }}" required>
+                        <button type="button" class="btn btn-sm btn-outline-secondary ml-auto edit-btn" data-target="email">Thay đổi</button>
+                    </div>
+                </div>
+                {{-- Địa chỉ --}}
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Địa chỉ:</label>
+                    <div class="col-sm-9 d-flex align-items-center">
+                        <span id="diachi-display" class="profile-value">{{ $user->diachi }}</span>
+                        <input type="text" class="form-control profile-input d-none" id="diachi-input" name="diachi" value="{{ $user->diachi }}">
+                        <button type="button" class="btn btn-sm btn-outline-secondary ml-auto edit-btn" data-target="diachi">Thay đổi</button>
+                    </div>
+                </div>
+                {{-- Số điện thoại --}}
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Số điện thoại:</label>
+                    <div class="col-sm-9 d-flex align-items-center">
+                        <span id="sdt-display" class="profile-value">{{ $user->sdt }}</span>
+                        <input type="text" class="form-control profile-input d-none" id="sdt-input" name="sdt" value="{{ $user->sdt }}">
+                        <button type="button" class="btn btn-sm btn-outline-secondary ml-auto edit-btn" data-target="sdt">Thay đổi</button>
+                    </div>
+                </div>
                         <div class="form-group row mb-0">
                             <div class="col-sm-9 offset-sm-3 text-right">
                                 <button type="submit" class="btn btn-primary">Cập nhật thông tin</button>
