@@ -146,16 +146,16 @@ class CartController extends Controller
 
     public function checkout()
     {
-        if (Auth::check()) {
-            if (Auth::user()) {
-                $showusers = DB::table('nguoidung')
-                    ->select('nguoidung.*')
-                    ->where('nguoidung.id_nd', Auth::user()->id_nd)
-                    ->get();
-                return view('pages.checkout', ['showusers' => $showusers]);
-            }
+        $user = Auth::user();
+        if ($user) {
+            $showusers = DB::table('nguoidung')
+                ->select('nguoidung.*')
+                ->where('nguoidung.id_nd', $user->id_nd)
+                ->get();
+            return view('pages.checkout', ['showusers' => $showusers]);
+        } else {
+            return redirect('/login')->with('needLogin', true);
         }
-        return redirect('/login');
     }
 
     public function dathang(Request $request)
