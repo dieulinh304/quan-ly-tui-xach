@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
 
     <link rel="stylesheet" href="/frontend/css/bsgrid.min.css" />
     <link rel="stylesheet" href="/frontend/css/style.min.css" />
@@ -20,6 +21,115 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" />
 
 </head>
+<style>
+    :root {
+    --Hover-icon: #FF9B42;
+}
+    .navbar__menu-list li {
+    display: inline-block;
+    padding-right: 15px;
+}
+.navbar__menu-list li.active a {
+    color: var(--hovericon) !important;
+}
+
+/* Nếu bạn cũng muốn giữ hiệu ứng gạch chân (hover-a::after) */
+.navbar__menu-list li.active .hover-a::after {
+    width: 100%;
+    background-color: var(--hovericon);
+}
+
+/* khoảng cách các box trong phan menu */
+.navbar__menu-list .padding-list-menu {
+    padding: 0 15px 0 15px;
+}
+
+/* icon của list menu */
+.navbar__menu-list .fa-solid {
+    font-size: 14px;
+    margin-left: 5px;
+    color: var(--color-text);
+    transition: 0.4s;
+}
+
+.navbar__menu-list li a {
+    text-decoration: none;
+    font-size: 16px;
+    color: rgb(33, 32, 32);
+    font-weight: 500;
+    padding: 0 0 5px 0;
+    transition: 0.4s;
+    position: relative;
+}
+
+/* Hiệu ứng hover menu */
+.navbar__menu-list li .hover-a::after {
+    position: absolute;
+    content: "";
+    width: 0px;
+    height: 3px;
+    background-color: var(--Hover-icon);
+    left: 0;
+    bottom: 0;
+    transition: all 0.4s ease-in-out;
+}
+
+.navbar__menu-list li .hover-a:hover::after {
+    width: 100%;
+}
+
+.navbar__menu-list li a:hover {
+    color: var(--Hover-icon);
+}
+
+.navbar__menu-list li:hover .angle-down {
+    color: var(--Hover-icon);
+}
+/* Ví dụ bạn có sẵn màu hovericon */
+:root {
+    --hovericon: #FF9B42; /* bạn thay màu mong muốn */
+}
+
+.hover-effect {
+    transition: color 0.3s ease, filter 0.3s ease;
+    color: inherit;
+}
+
+/* Thêm transition cho các icon bên trong hover-effect */
+.hover-effect i {
+    transition: color 0.3s ease;
+}
+
+.hover-effect:hover,
+.hover-effect:hover i {
+    color: var(--hovericon);
+}
+
+/* Transition cho img */
+.hover-effect img {
+    transition: filter 0.3s ease;
+}
+
+.hover-effect:hover img {
+    filter: brightness(0) saturate(100%) invert(45%) sepia(83%) saturate(604%) hue-rotate(358deg) brightness(98%) contrast(102%);
+}
+
+#dropdown-danhmuc {
+    white-space: normal; /* Cho phép xuống dòng */
+    width: 200px; /* Đặt chiều rộng cố định hoặc auto */
+    padding: 10px 0;
+}
+
+#dropdown-danhmuc li {
+    padding: 5px 15px;
+}
+
+#dropdown-danhmuc li a {
+    white-space: normal; /* Cho phép text trong <a> xuống dòng */
+    display: block;
+    word-break: break-word; /* Nếu từ quá dài, cho phép ngắt từ */
+}
+</style>
 
 <body style="margin: 0; min-height: 100vh; display: flex; flex-direction: column;">
     <div class="header">
@@ -32,20 +142,20 @@
 
                 <ul class="navbar__menu-list">
                     <li class="{{ request()->is('/') ? 'active' : '' }}">
-                        <a href="{{ URL::to('/') }}">Trang chủ</a>
+                        <a href="{{ URL::to('/') }}" class="hover-a">Trang chủ</a>
                     </li>
 
                     <li class="dropdown {{ request()->is('viewAll*') ? 'active' : '' }}" id="sanpham-dropdown">
-                        <a href="{{ URL::to('/viewAll') }}">Sản phẩm </a>
+                        <a href="{{ URL::to('/viewAll') }}" class="hover-a">Sản phẩm </a>
                         <ul class="dropdown-menu" id="dropdown-danhmuc"></ul>
                     </li>
 
                     <li class="{{ request()->is('services') ? 'active' : '' }}">
-                        <a href="{{ URL::to('/services') }}">Dịch vụ</a>
+                        <a href="{{ URL::to('/services') }}" class="hover-a">Dịch vụ</a>
                     </li>
 
                     <li class="{{ request()->is('donhang') ? 'active' : '' }}">
-                        <a href="{{ URL::to('/donhang') }}">Đơn hàng</a>
+                        <a href="{{ URL::to('/donhang') }}" class="hover-a">Đơn hàng</a>
                     </li>
                 </ul>
 
@@ -69,27 +179,30 @@
                     <form id="logoutForm" action="{{ route('logout') }}" method="POST">
                         @csrf
                         @method('DELETE')
-                        <button style="border: none; background: transparent; cursor: pointer;" type="submit" id="logoutBtn">
+                        <button style="border: none; background: transparent; cursor: pointer;" 
+                                type="submit" id="logoutBtn" class="hover-effect">
                             <i class="fas fa-sign-out-alt text-primary" style="font-size: 20px;"></i>
                         </button>
+
                     </form>
                 </div>
 
                 @else
                 <!-- Hiển thị nút login -->
                 <div class="login">
-                    <a href="{{ URL::to('login')}}"><i class="fa fa-user"></i> </a>
+                    <a href="{{ URL::to('login')}}" class="hover-effect">
+                        <i class="fa fa-user"></i>
+                    </a>
                 </div>
                 @endif
 
-                <a href="{{ route('cart') }}" class="navbar__shoppingCart">
+                <a href="{{ route('cart') }}" class="navbar__shoppingCart hover-effect">
                     <img src="{{ asset('frontend/img/shopping-cart.svg')}}" style="width: 24px;" alt="">
 
                     @if (session('cart'))
-                    <span>{{ count((array) session('cart')) }}</span>
+                        <span>{{ count((array) session('cart')) }}</span>
                     @else
-                    <span>0</span>
-
+                        <span>0</span>
                     @endif
                 </a>
             </div>

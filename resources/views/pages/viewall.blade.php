@@ -1,5 +1,59 @@
 @extends('layout')
 @section('content')
+<style>
+    .product {
+    position: relative; /* cần để vị trí tuyệt đối cho .box-icon-new-product */
+}
+
+.product .box-icon-new-product {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: auto;
+    min-height: auto;
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+
+.product .box-icon-new-product i {
+    color: var(--color-text-1, #333);
+    width: 40px;
+    height: 40px;
+    background-color: white;
+    border-radius: 20px;
+    text-align: center;
+    line-height: 40px; /* để icon căn giữa dọc */
+    margin: 0 5px;
+    transition: all 0.7s ease;
+    opacity: 0;
+    cursor: pointer;
+    pointer-events: auto; /* cho phép bấm icon */
+}
+
+.product .box-icon-new-product i:hover {
+    background-color: var(--Hover-icon, #007bff);
+    color: white;
+}
+
+.product .box-icon-new-product #cart-Product,
+.product .box-icon-new-product #search-Product {
+    transform: translateY(-20px);
+}
+
+.product .box-icon-new-product #heart-Product {
+    transform: translateY(20px);
+}
+
+.product:hover .box-icon-new-product #cart-Product,
+.product:hover .box-icon-new-product #search-Product,
+.product:hover .box-icon-new-product #heart-Product {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+</style>
 <!-- Tất cả sản phẩm -->
 <div class="body">
     <div class="body__mainTitle">
@@ -25,6 +79,18 @@
                             <div class="product__img">
                                 <img src="{{$sanpham->anhsp}}" alt="">
                             </div>
+                            <div class="box-icon-new-product">
+                                <a href="{{ route('add_to_cart', $sanpham->id_sanpham) }}" title="Thêm vào giỏ hàng">
+                                    <i style="font-size: 19px;" id="cart-Product" class="cart-product fa-solid fa-cart-shopping"></i>
+                                </a>
+                                {{-- <a href="{{ route('wishlist_add', $sanpham->id_sanpham) }}" title="Thêm vào yêu thích">
+                                    <i style="font-size: 18px;" id="heart-Product" class="fa-solid fa-heart"></i>
+                                </a> --}}
+                                <a href="{{ route('detail', ['id' => $sanpham->id_sanpham]) }}" title="Xem chi tiết sản phẩm">
+                                    <i style="font-size: 18px;" id="search-Product" class="fa-solid fa-magnifying-glass"></i>
+                                </a>
+                            </div>
+
                             <div class="product__sale">
                                 <div>
                                     @if($sanpham->giamgia)
