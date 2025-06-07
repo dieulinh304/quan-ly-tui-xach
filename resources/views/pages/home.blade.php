@@ -38,12 +38,11 @@
     color: white;
 }
 
-.product .box-icon-new-product #cart-Product,
 .product .box-icon-new-product #search-Product {
     transform: translateY(-20px);
 }
 
-.product .box-icon-new-product #heart-Product {
+.product .box-icon-new-product #cart-Product {
     transform: translateY(20px);
 }
 
