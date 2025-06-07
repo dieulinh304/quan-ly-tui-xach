@@ -85,7 +85,10 @@
                         <td data-th="Subtotal" class="text-center">{{ $details['giakhuyenmai'] }}đ</td>
                         <td data-th="Quantity" class="quantity-input">
                             <button class="quantity-btn decreaseValue">-</button>
-                            <input class="quantity-field quantity cart_update" type="number" min="1" max="999" value="{{ $details['quantity'] }}">
+                            <input class="quantity-field quantity cart_update" type="number" min="1" max="{{ $stock[$id] ?? 999 }}" value="{{ $details['quantity'] }}">
+                            @if(isset($stock[$id]))
+                                <div class="text-muted" style="font-size:12px;">Tồn kho: {{ $stock[$id] }}</div>
+                            @endif
                             <button class="quantity-btn increaseValue">+</button>
                         </td>
                         <td data-th="Total" class="text-center product-total">{{ $details['giakhuyenmai'] * $details['quantity'] }}đ</td>
@@ -126,6 +129,10 @@ document.addEventListener('DOMContentLoaded', function() {
             var quantityInput = row.querySelector('.quantity');
             var value = parseInt(quantityInput.value, 10);
             var max = parseInt(quantityInput.getAttribute('max'), 10);
+            if (value < max) {
+                quantityInput.value = value + 1;
+                updateCart(row, quantityInput.value, this);
+            }
 
             if (isNaN(value)) value = 1;
             if (value < max) {

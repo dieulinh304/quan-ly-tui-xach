@@ -21,16 +21,15 @@ class OrderViewController extends Controller
 
     public function donhang()
     {
-
         $user = Auth::user();
         if ($user) {
             $orders = $this->OrderRepository->orderView($user->id_nd);
-            // print_r($orders);
             return view('pages.donhang', ['orders' => $orders]);
         } else {
-            return redirect('/');
+            return redirect('/login')->with('needLogin', true);
         }
     }
+
 
     public function edit($id)
     {

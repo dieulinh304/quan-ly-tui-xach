@@ -34,19 +34,22 @@ class CommentController extends Controller
         $request->validate([
             'sanpham_id' => 'required|exists:sanpham,id_sanpham',
             'content' => 'required|string|max:1000',
-            'g-recaptcha-response' => 'required'
+            'g-recaptcha-response' => 'required_if:require_captcha,true'
         ]);
 
-        $recaptchaResponse = $request->input('g-recaptcha-response');
-        $googleResponse = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
-            'secret' => env('RECAPTCHA_SECRET_KEY'),
-            'response' => $recaptchaResponse,
-            'remoteip' => $request->ip(),
-        ]);
+        // Kiểm tra nếu cần reCAPTCHA
+        if ($request->has('g-recaptcha-response')) {
+            $recaptchaResponse = $request->input('g-recaptcha-response');
+            $googleResponse = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
+                'secret' => env('RECAPTCHA_SECRET_KEY'),
+                'response' => $recaptchaResponse,
+                'remoteip' => $request->ip(),
+            ]);
 
-        $result = $googleResponse->json();
-        if (!($result['success'] ?? false)) {
-            return response()->json(['success' => false, 'message' => 'Xác minh CAPTCHA không hợp lệ'], 422);
+            $result = $googleResponse->json();
+            if (!($result['success'] ?? false)) {
+                return response()->json(['success' => false, 'message' => 'Xác minh CAPTCHA không hợp lệ'], 422);
+            }
         }
         
         // Kiểm tra từ ngữ thô tục

@@ -39,7 +39,13 @@ class ForgotPasswordController extends Controller
     }
 
     public function showResetForm($token) {
-        return view('pages.reset-password', ['token' => $token]);
+        $reset = DB::table('password_resets')->where('token', $token)->first();
+
+        if (!$reset) {
+            return redirect()->route('login')->with('error', 'Token không hợp lệ hoặc đã hết hạn!');
+        }
+
+        return view('pages.reset-password', ['token' => $token, 'email' => $reset->email]);
     }
 
     public function resetPassword(Request $request) {

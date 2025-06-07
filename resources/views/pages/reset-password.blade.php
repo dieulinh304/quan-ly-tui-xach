@@ -11,21 +11,24 @@
             <form action="{{ route('password.update') }}" method="POST" class="form">
                 @csrf
                 <input type="hidden" name="token" value="{{ $token }}">
-                <h3 class="heading">Đặt lại mật khẩu</h3>
+                <input type="hidden" name="email" value="{{ $email }}">
 
-                <div class="form-group">
-                    <label class="form-label">Email</label>
-                    <input type="email" name="email" class="form-control" required>
-                </div>
+                <h3 class="heading">Đặt lại mật khẩu</h3>
 
                 <div class="form-group">
                     <label class="form-label">Mật khẩu mới</label>
                     <input type="password" name="password" class="form-control" required>
+                    @error('password')
+                        <div class="text-danger mt-1">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 <div class="form-group">
                     <label class="form-label">Xác nhận mật khẩu</label>
                     <input type="password" name="password_confirmation" class="form-control" required>
+                    @error('password_confirmation')
+                        <div class="text-danger mt-1">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 <button type="submit" class="form-submit">Đặt lại mật khẩu</button>

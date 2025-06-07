@@ -3,6 +3,18 @@
 <!--Main-->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+@if (session('needLogin'))
+<script>
+    Swal.fire({
+        icon: 'warning',
+        title: 'Thông báo',
+        text: 'Bạn cần đăng nhập để tiếp tục.',
+        confirmButtonText: 'Đồng ý'
+    });
+</script>
+@endif
+
+
 <div class="login-form">
     <div class="height360">
         <div class="main">
@@ -46,6 +58,17 @@
         icon: 'error',
         title: 'Đăng nhập thất bại',
         text: "{{ session('error') }}",
+        timer: 3000,
+        showConfirmButton: false
+    });
+</script>
+@endif
+@if(session('success'))
+<script>
+    Swal.fire({
+        icon: 'success',
+        title: 'Thành công',
+        text: "{{ session('success') }}",
         timer: 3000,
         showConfirmButton: false
     });
