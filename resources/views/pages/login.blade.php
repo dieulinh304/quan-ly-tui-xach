@@ -3,6 +3,18 @@
 <!--Main-->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+@if (session('needLogin'))
+<script>
+    Swal.fire({
+        icon: 'warning',
+        title: 'Thông báo',
+        text: 'Bạn cần đăng nhập để tiếp tục.',
+        confirmButtonText: 'Đồng ý'
+    });
+</script>
+@endif
+
+
 <div class="login-form">
     <div class="height360">
         <div class="main">

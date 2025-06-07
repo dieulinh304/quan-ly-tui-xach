@@ -340,11 +340,10 @@ a:hover {
     width: 100%;
     height: 100vh;
     margin: 0 auto;
-    background: #fff;
+    background: #fff; /* Fallback color */
     box-shadow: 0 3px 8px rgb(0 0 0 / 15%);
-    background-size: cover;
-    background: url("/frontend/img/bg-login.jpg") !important;
-    background-repeat: no-repeat;
+    /* Optimized background properties */
+    background: url("/frontend/img/bg-tui.jpg") no-repeat center center / cover !important;
     position: relative;
     margin-top: -90px;
 }
