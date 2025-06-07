@@ -422,7 +422,7 @@
                         <ul class="dropdown-menu" id="dropdown-danhmuc"></ul>
                     </li>
                     <li class="{{ request()->is('services') ? 'active' : '' }}">
-                        <a href="{{ URL::to('/services') }}" class="hover-a">Dịch vụ</a>
+                        <a href="{{ URL::to('/services') }}" class="hover-a">Giới thiệu </a>
                     </li>
                     <li class="{{ request()->is('donhang') ? 'active' : '' }}">
                         <a href="{{ URL::to('/donhang') }}" class="hover-a">Đơn hàng</a>
