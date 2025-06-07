@@ -32,7 +32,7 @@ class CartController extends Controller
         $cart = session()->get('cart', []);
 
         if (isset($cart[$id])) {
-        return redirect()->back()->with('warning', 'Sản phẩm đã có trong giỏ hàng!');
+            $cart[$id]['quantity']++;
         } else {
             $cart[$id] = [
                 "id_sanpham" => $product->id_sanpham,
@@ -56,7 +56,7 @@ class CartController extends Controller
         $cart = session()->get('cart', []);
 
         if (isset($cart[$id])) {
-        return redirect('/cart')->with('warning', 'Sản phẩm đã có trong giỏ hàng!');
+            $cart[$id]['quantity']++;
         } else {
             $cart[$id] = [
                 "id_sanpham" => $product->id_sanpham,
