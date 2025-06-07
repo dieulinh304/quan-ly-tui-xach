@@ -27,28 +27,37 @@
 
     /* === HEADER STYLES === */
     .header {
-    position: fixed;
-    top: 0;
-    left: 50%; /* dịch sang giữa */
-    transform: translateX(-50%); /* căn giữa */
-    width: 1200px; /* hoặc giống max-width của navbar */
-    background-color: #ffffff;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    z-index: 1030;
+        position: fixed;
+        top: 0;
+        left: 50%; /* dịch sang giữa */
+        transform: translateX(-50%); /* căn giữa */
+        width: 1200px; /* hoặc giống max-width của navbar */
+        background-color: #ffffff;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        z-index: 1030;
     }
 
     .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    width: 100%; /* fill hết header */
-    /* bỏ max-width và margin */
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        width: 100%; /* fill hết header */
+        /* bỏ max-width và margin */
     }
 
     .navbar__left, .navbar__center, .navbar__right {
         display: flex;
         align-items: center;
+    }
+    .navbar__left a.navbar__logo {
+        display: flex; /* Ensure logo and text are in a flex container if not already */
+        align-items: center; /* Vertically align logo and the following element */
+    }
+
+    .navbar__left a.navbar__logo img {
+        /* Existing styles for your logo */
+        margin-right: 20px; /* Add right margin to create space */
     }
 
     .navbar__menu-list {
@@ -73,6 +82,10 @@
 
     .navbar__menu-list .padding-list-menu {
         padding: 0 15px;
+    }
+    .navbar__menu-list li:first-child a {
+    /* Existing styles for the "Trang chủ" link */
+    margin-left: 15px; /* Add left margin to create space */
     }
 
     .navbar__menu-list .fa-solid {
@@ -164,25 +177,26 @@
 
 
     #dropdown-danhmuc li {
-        padding: 5px 15px;
+        padding: 5px 15px; /* Giữ padding này cho li */
     }
 
     #dropdown-danhmuc li a {
         white-space: normal;
         display: block;
         word-break: break-word;
-        padding: .25rem 1.5rem; /* Thêm padding cho các mục dropdown */
+        padding: .25rem 1.5rem;
         clear: both;
         font-weight: 400;
-        color: #212529;
+        color: #212529 !important; /* THAY ĐỔI DÒNG NÀY */
         text-align: inherit;
         text-decoration: none;
         background-color: transparent;
         border: 0;
+        margin-left: 0 !important;
     }
+
     #dropdown-danhmuc li a:hover {
-        background-color: #e9ecef; /* Màu nền khi hover trong dropdown */
-        color: #212529;
+        color: var(--Hover-icon) !important; /* THAY ĐỔI DÒNG NÀY */
     }
 
     /* Modal Styling (giữ nguyên hoặc điều chỉnh nếu cần) */
@@ -425,6 +439,10 @@
             justify-content: center; /* Center social icons */
         }
     }
+    /* XÓA hoặc CHỈNH SỬA DÒNG NÀY ĐỂ TRÁNH TRÙNG LẶP HOẶC GÂY LỆCH */
+    /* #dropdown-danhmuc li:first-child a {
+        padding-left: 10px;
+    } */
 </style>
 
 <body style="margin: 0; min-height: 100vh; display: flex; flex-direction: column;">
@@ -438,12 +456,12 @@
                     <li class="{{ request()->is('/') ? 'active' : '' }}">
                         <a href="{{ URL::to('/') }}" class="hover-a">Trang chủ</a>
                     </li>
+                    <li class="{{ request()->is('services') ? 'active' : '' }}">
+                        <a href="{{ URL::to('/services') }}" class="hover-a">Giới thiệu </a>
+                    </li>
                     <li class="dropdown {{ request()->is('viewAll*') ? 'active' : '' }}" id="sanpham-dropdown">
                         <a href="{{ URL::to('/viewAll') }}" class="hover-a">Sản phẩm </a>
                         <ul class="dropdown-menu" id="dropdown-danhmuc"></ul>
-                    </li>
-                    <li class="{{ request()->is('services') ? 'active' : '' }}">
-                        <a href="{{ URL::to('/services') }}" class="hover-a">Giới thiệu </a>
                     </li>
                     <li class="{{ request()->is('donhang') ? 'active' : '' }}">
                         <a href="{{ URL::to('/donhang') }}" class="hover-a">Đơn hàng</a>
