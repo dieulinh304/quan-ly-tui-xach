@@ -131,7 +131,7 @@
     }
 
     .old-price {
-        font-size: 1.3rem;
+        font-size: 1.1rem;
         color: #95a5a6; /* Lighter grey for old price */
         text-decoration: line-through;
         margin-bottom: 8px;
@@ -139,7 +139,7 @@
     }
 
     .current-price {
-        font-size: 3.2rem; /* Much larger for impact */
+        font-size: 2.5rem; /* Much larger for impact */
         color: #e74c3c; /* Striking red for current price */
         font-weight: 800;
         display: block;
@@ -504,7 +504,7 @@
         }
 
         .current-price {
-            font-size: 2.8rem;
+            font-size: 2.2rem;
         }
 
         .product-action-buttons {
@@ -532,7 +532,7 @@
         }
 
         .current-price {
-            font-size: 2.4rem;
+            font-size: 1.8rem;
         }
 
         .section-heading {
@@ -581,7 +581,7 @@
         }
 
         .current-price {
-            font-size: 2rem;
+            font-size: 1.6rem;
         }
 
         .add-to-cart-btn, .buy-now-btn {
@@ -643,18 +643,18 @@
                 @if ($sanpham->giakhuyenmai < $sanpham->giasp && $sanpham->giakhuyenmai > 0)
                 <div class="old-price">
                     <span class="Price">
-                        <bdi>{{ number_format($sanpham->giasp, 0, ',', '.') }}<span class="currency-symbol">₫</span></bdi>
+                        <bdi>{{ number_format($sanpham->giasp, 0, ',', '.') }} VNĐ</bdi>
                     </span>
                 </div>
                 <div class="current-price">
                     <span class="Price">
-                        <bdi>{{ number_format($sanpham->giakhuyenmai, 0, ',', '.') }}<span class="currency-symbol">₫</span></bdi>
+                        <bdi>{{ number_format($sanpham->giakhuyenmai, 0, ',', '.') }} VNĐ</bdi>
                     </span>
                 </div>
                 @else
-                <div class="current-price" style="font-size: 3.2rem;">
+                <div class="current-price"> {{-- Removed inline style, let CSS handle it --}}
                     <span class="Price">
-                        <bdi>{{ number_format($sanpham->giasp, 0, ',', '.') }}<span class="currency-symbol">₫</span></bdi>
+                        <bdi>{{ number_format($sanpham->giasp, 0, ',', '.') }} VNĐ</bdi>
                     </span>
                 </div>
                 @endif
