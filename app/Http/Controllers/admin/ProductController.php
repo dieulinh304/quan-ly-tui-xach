@@ -135,7 +135,7 @@ class ProductController extends Controller
 
     $this->productRepository->storeProduct($validatedData);
 
-    return redirect()->route('product.index');
+    return redirect()->route('product.index')->with('success', 'Thêm sản phẩm thành công!');
     }
 
 
