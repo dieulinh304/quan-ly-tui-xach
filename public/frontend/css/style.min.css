@@ -1386,101 +1386,100 @@ footer {
     }
 }
 footer {
-  background-color: #1e1e1e;
-  color: #eee;
-  padding-top: 1px;
-  font-size: 15px;
-  line-height: 1.6;
-  font-family: 'Segoe UI', sans-serif;
+    background-color: #1e1e1e;
+    color: #eee;
+    padding-top: 1px;
+    font-size: 15px;
+    line-height: 1.6;
+    font-family: "Segoe UI", sans-serif;
 }
 
 .footer__title span {
-  display: block;
-  font-size: 20px;
-  font-weight: 600;
-  color: #ffffff;
-  margin-bottom: 15px;
+    display: block;
+    font-size: 20px;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 15px;
 }
 
 .footer__social {
-  margin-top: 12px;
+    margin-top: 12px;
 }
 
 .footer__social a {
-  margin: 0 12px;
-  color: #ffffff;
-  font-size: 20px;
-  transition: transform 0.3s ease, color 0.3s ease;
+    margin: 0 12px;
+    color: #ffffff;
+    font-size: 20px;
+    transition: transform 0.3s ease, color 0.3s ease;
 }
 
 .footer__social a:hover {
-  color: #f05a28;
-  transform: scale(1.2);
+    color: #f05a28;
+    transform: scale(1.2);
 }
 
 .footer__info {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 30px;
-  max-width: 1200px;
-  margin: 30px auto 0;
-  text-align: left;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 30px auto 0;
+    text-align: left;
 }
 
 .footer__info-content {
-  flex: 1;
-  min-width: 240px;
-  max-width: 300px;
-  box-sizing: border-box;
+    flex: 1;
+    min-width: 240px;
+    max-width: 300px;
+    box-sizing: border-box;
 }
 
 .footer__info-content h3 {
-  font-size: 17px;
-  margin-bottom: 12px;
-  font-weight: 600;
-  color: #ffffff;
-  border-bottom: 1px solid #444;
-  padding-bottom: 8px;
+    font-size: 17px;
+    margin-bottom: 12px;
+    font-weight: 600;
+    color: #ffffff;
+    border-bottom: 1px solid #444;
+    padding-bottom: 8px;
 }
 
 .footer__info-content p,
 .footer__info-content a {
-  color: #ccc;
-  margin-bottom: 10px;
-  display: block;
-  text-decoration: none;
-  font-size: 14px;
-  transition: color 0.3s ease;
+    color: #ccc;
+    margin-bottom: 10px;
+    display: block;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.3s ease;
 }
 
 .footer__info-content a:hover {
-  color: #f05a28;
+    color: #f05a28;
 }
 
 .footer__info-content i {
-  min-width: 20px;
-  margin-right: 10px;
-  color: #f05a28;
+    min-width: 20px;
+    margin-right: 10px;
+    color: #f05a28;
 }
 
 .footer__info-content p {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 .footer__info-content:last-child {
-  margin-right: auto;
+    margin-right: auto;
 }
 .footer__copyright {
-  /* margin-top: 40px; */
-  text-align: center;
-  font-size: 13px;
-  border-top: 1px solid #333;
-  /* padding-top: 15px; */
-  color: #aaa;
+    /* margin-top: 40px; */
+    text-align: center;
+    font-size: 13px;
+    border-top: 1px solid #333;
+    /* padding-top: 15px; */
+    color: #aaa;
 }
-
 
 .comment-box {
     display: flex;
@@ -1489,7 +1488,7 @@ footer {
     background: #f9f9f9;
     padding: 15px;
     border-radius: 10px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
     max-width: 600px;
 }
 
@@ -1524,7 +1523,6 @@ footer {
     background-color: #0056b3;
 }
 
-
 #commentsList {
     display: flex;
     flex-direction: column;
@@ -1538,7 +1536,7 @@ footer {
     background-color: #f9f9f9;
     border-radius: 10px;
     padding: 1rem;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
 .avatar {
@@ -1600,4 +1598,22 @@ footer {
 .btn-delete {
     background-color: #f44336;
     color: #fff;
+}
+.edit-textarea {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+    margin-top: 5px;
+}
+.btn-cancel {
+    margin-left: 8px;
+    background-color: #ccc;
+    color: #000;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
 }

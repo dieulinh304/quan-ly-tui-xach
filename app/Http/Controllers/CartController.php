@@ -206,7 +206,9 @@ class CartController extends Controller
             ChitietDonhang::create($validatedDataCTDatHang);
         }
 
-        $request->session()->forget('cart');
+        if ($request->session()->get('cart')) {
+            $request->session()->forget('cart');
+        }
 
         return view('pages.thongbaodathang');
     }
@@ -217,9 +219,18 @@ class CartController extends Controller
             $responseCode = $request->input('vnp_ResponseCode');
 
             if ($responseCode == '00') {
+
+                $orderData = session()->get('order_data');
+                if ($orderData) {
+                    $fakeRequest = Request::create('/', 'POST', $orderData);
+                    $fakeRequest->setLaravelSession(app('session')->driver());
+
+                    $this->dathang($fakeRequest);
+                    session()->forget('order_data');
+                }
                 return view('pages.thongbaodathang');
             } else {
-                return redirect('/cart');
+                return redirect('/cart')->with('error', 'Thanh toán thất bại.');
             }
         } else {
             return redirect('/cart');
@@ -232,14 +243,14 @@ class CartController extends Controller
         $vnp_HashSecret = "BAGAOHAPRHKQZASKQZASVPRSAKPXNYXS"; // Chuỗi bí mật
 
         $vnp_Url = "http://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-        $vnp_Returnurl = "http://127.0.0.1:8000/thongbaodathang";
+        $vnp_Returnurl = url('/thongbaodathang');;
         $vnp_TxnRef = date("YmdHis"); // Mã đơn hàng
         $vnp_OrderInfo = "Thanh toán hóa đơn phí dich vụ";
         $vnp_OrderType = 'billpayment';
+
         $vnp_Amount = $request->tongtien * 100;
         $vnp_Locale = 'vn';
         $vnp_IpAddr = request()->ip();
-
         $inputData = array(
             "vnp_Version" => "2.0.0",
             "vnp_TmnCode" => $vnp_TmnCode,
@@ -277,30 +288,7 @@ class CartController extends Controller
             $vnpSecureHash = hash('sha256', $vnp_HashSecret . $hashdata);
             $vnp_Url .= 'vnp_SecureHashType=SHA256&vnp_SecureHash=' . $vnpSecureHash;
         }
-
-        $this->dathang($request);
-
+        session()->put('order_data', $request->all());
         return redirect($vnp_Url);
     }
-    // public function capnhatThongTin(Request $request)
-    // {
-    //     $request->validate([
-    //         'id_nd' => 'required|exists:nguoidung,id_nd',
-    //         'diachi' => 'required|string|max:100',
-    //         'hoten' => 'required|string|max:100',
-    //         'email' => 'required|email|max:100',
-    //         'sdt' => 'required|digits_between:9,11',
-    //     ]);
-
-    //     DB::table('nguoidung')
-    //         ->where('id_nd', $request->id_nd)
-    //         ->update([
-    //             'diachi' => $request->diachi,
-    //             'hoten'  => $request->hoten,
-    //             'email'  => $request->email,
-    //             'sdt'    => $request->sdt,
-    //         ]);
-
-    //     return redirect()->back()->with('success', 'Cập nhật thông tin thành công!');
-    // }
 }

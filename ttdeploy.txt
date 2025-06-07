@@ -1,0 +1,23 @@
+# Tài khoản gmail 
+quanlytuixach@gmail.com
+dieulinh304
+--------------------------------
+# Tài khoản git 
+quanlytuixach@gmail.com
+quanlytuixach304
+-------------------------------------
+
+#Khi chạy trên PostgreSQL
+DB_CONNECTION=pgsql
+DB_HOST=dpg-d11h8uffte5s7397qicg-a.singapore-postgres.render.com
+DB_PORT=5432
+DB_DATABASE=quan_ly_tui_xach
+DB_USERNAME=quan_ly_tui_xach_user
+DB_PASSWORD=x8tQ6l3A5bqKTgJTDZiVJIEpgo9Y7zOV
+DB_SSLMODE=require
+
+# Tài khoản khi thanh toán bằng VNPay
+9704198526191432198
+NGUYEN VAN A
+07/15
+OTP: 123456

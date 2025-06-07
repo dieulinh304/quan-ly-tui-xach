@@ -3,11 +3,11 @@
 
 <style>
     @media (max-width: 992px) {
-    .body {
-        width: unset;
-        margin: 0 auto;
+        .body {
+            width: unset;
+            margin: 0 auto;
+        }
     }
-}
 </style>
 
 <div class="post-slider">
@@ -38,22 +38,37 @@
 </div>
 
 <div class="body">
-    <div class="container-fluid" style="padding: 0!important;">
-        <div style="background-image: url('frontend/img/bg_sacha.jpg')" class="service-banner">
-            <div class="boxservice">
-                <h3 class="h1-title">
-                    SACHA - NƠI TÔN VINH PHONG CÁCH VÀ ĐẲNG CẤP!
-                </h3>
-                <p>Với sứ mệnh mang đến những chiếc túi hiệu thời thượng, Sacha là điểm đến lý tưởng cho những ai yêu thích sự tinh tế và đẳng cấp trong từng thiết kế.</p>
-
-                <button class="btn btn-danger mt-5" onclick="window.location.href='{{ url('/') }}'">Khám phá ngay!</button>            </div>
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="boxservice" style="text-align: justify;">
+                    <h3 class="h1-title text-center" style="font-family: Georgia, serif; font-weight: bold; font-size: 1.8rem;">
+                        HÀNH TRÌNH KHẲNG ĐỊNH THƯƠNG HIỆU SACHA
+                    </h3>
+                    <p>
+                        SACHA được thành lập với mục tiêu trở thành cầu nối đáng tin cậy giữa khách hàng và các thương hiệu túi xách xa xỉ hàng đầu thế giới như Gucci, Chanel, Dior, Louis Vuitton... Chúng tôi chuyên cung cấp các dòng sản phẩm chính hãng 100%, được tuyển chọn kỹ lưỡng từ những nhà phân phối uy tín toàn cầu.
+                    </p>
+                    <p>
+                        Từ những ngày đầu hoạt động, SACHA đã không ngừng nỗ lực xây dựng uy tín thông qua chất lượng dịch vụ, độ minh bạch về sản phẩm và trải nghiệm mua sắm đẳng cấp. Khách hàng đến với SACHA không chỉ để sở hữu một chiếc túi thời trang, mà còn để khẳng định phong cách sống thời thượng và gu thẩm mỹ cá nhân.
+                    </p>
+                    <p>
+                        Với phương châm “Chất lượng tạo nên đẳng cấp”, SACHA cam kết mang đến cho bạn những bộ sưu tập mới nhất, hot nhất từ các sàn diễn thời trang quốc tế – cùng chính sách bảo hành, hậu mãi và hỗ trợ tận tâm. SACHA tin rằng, mỗi chiếc túi là một phần trong câu chuyện phong cách của riêng bạn.
+                    </p>
+                    <div class="text-center">
+                        <a href="{{ url('/viewAll') }}">
+                            <button class="btn btn-danger mt-3 px-4 py-2" style="font-size: 1.1rem; border-radius: 30px;">
+                                Khám phá ngay!
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-
     <div class="row">
         <div class="col-lg-4" style="padding: 15px!important;">
             <div style="background-color: #2885BA" class="service-list__content-box">
-                <img src="{{ asset('frontend/img/sacha_bag1.jpg')}}" alt="Luxury Bag">
+                <img src="{{ asset('frontend/img/luxurybag.jpg')}}" alt="Luxury Bag">
                 <h3 class="h1-title">
                     1. SACHA - ĐỈNH CAO THỜI TRANG TÚI HIỆU!
                 </h3>
@@ -64,7 +79,7 @@
         </div>
         <div class="col-lg-4" style="padding: 15px!important;">
             <div style="background-color: #B56256" class="service-list__content-box">
-                <img src="{{ asset('frontend/img/sacha_bag2.jpg')}}" alt="Quality Bag">
+                <img src="{{ asset('frontend/img/communitybag.jpg')}}" alt="Quality Bag">
                 <h3 class="h1-title">
                     2. CHẤT LƯỢNG VÀ SỰ TIN CẬY HÀNG ĐẦU!
                 </h3>
@@ -75,9 +90,9 @@
         </div>
         <div class="col-lg-4" style="padding: 15px!important;">
             <div style="background-color: #5C9CCA" class="service-list__content-box">
-                <img src="{{ asset('frontend/img/sacha_bag3.jpg')}}" alt="Community">
+                <img src="{{ asset('frontend/img/qualitybag.jpg')}}" alt="Community">
                 <h3 class="h1-title">
-                    3. CỘNG ĐỒNG YÊU TÚI HIỆU!
+                    3. NƠI HỘI TỤ NHỮNG TÍN ĐỒ ĐAM MÊ TÚI HIỆU!
                 </h3>
                 <p>
                     Sacha không chỉ là nơi mua sắm, mà còn là cộng đồng để những người yêu túi hiệu chia sẻ đam mê, phong cách và cảm hứng thời trang.
@@ -86,16 +101,6 @@
         </div>
     </div>
 
-    <div class="service-text mb30">
-        <div class="service-text__content">
-            <h2 class="h2-title">
-                Tinh tế, đẳng cấp và đam mê thời trang là những giá trị cốt lõi mà Sacha mang đến cho từng khách hàng!
-            </h2>
-        </div>
 
-        <div class="d-flex justify-content-center align-items-center">
-            <img class="banner-service" src="{{ asset('frontend/img/sacha_banner.jpg')}}" alt="Sacha Brand">
-        </div>
-    </div>
 </div>
 @endsection

@@ -8,7 +8,6 @@
         <i class="fa fa-arrow-circle-left"></i> Trở lại mua hàng
     </a>
 
-
     <div class="product_card mt-3">
         <div class="product__details-img mr-2">
             <div class="big-img">
@@ -62,7 +61,6 @@
                 @endif
             </form>
         </div>
-
     </div>
 
     <!-- Mô tả sản phẩm -->
@@ -87,7 +85,7 @@
         btn.addEventListener("click", () => {
             expanded = !expanded;
             if (expanded) {
-                mota.rows = lineCount+1;
+                mota.rows = lineCount + 1;
                 btn.textContent = "Thu gọn";
             } else {
                 mota.rows = 4;
@@ -98,11 +96,9 @@
 
     <hr />
 
-
     <!-- Bình luận sản phẩm -->
     <div class="comment-section">
         <h3>Bình luận</h3>
-
 
         @if(Auth::check())
         <form id="commentForm" style="margin-top: 20px;">
@@ -111,6 +107,7 @@
 
             <div class="comment-box">
                 <textarea name="content" placeholder="Viết bình luận..." rows="3" required></textarea>
+                <div class="g-recaptcha" data-sitekey="{{ env('RECAPTCHA_SITE_KEY') }}" style="display:none"></div>
                 <button type="submit" class="btn-submit">Gửi bình luận</button>
             </div>
         </form>
@@ -125,7 +122,9 @@
                 <div class="comment-content">
                     <div class="comment-header">
                         <b class="username">{{ $comment->user->hoten }}</b>
-                        <small class="time-text">{{ \Carbon\Carbon::parse($comment->created_at)->diffForHumans() }}</small>
+                        <small class="time-text">
+                            {{ \Carbon\Carbon::parse($comment->created_at)->format('H:i:s d/m/Y') }}
+                        </small>
                     </div>
                     <p class="content-text">{{ $comment->content }}</p>
 
@@ -140,60 +139,131 @@
             @endforeach
         </div>
     </div>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const commentForm = document.getElementById('commentForm');
             const commentsList = document.getElementById('commentsList');
             const csrfToken = document.querySelector('input[name="_token"]').value;
+            const recaptchaDiv = document.querySelector('.g-recaptcha');
+            let hasViewedComments = false;
+
+            // Phát hiện khi danh sách bình luận được xem
+            const observer = new IntersectionObserver((entries) => {
+                if (entries[0].isIntersecting) {
+                    hasViewedComments = true;
+                    observer.disconnect(); // Ngừng quan sát sau khi đã xem
+                }
+            }, { threshold: 0.1 });
+            observer.observe(commentsList);
+
+            let commentTimes = []; // Lưu thời điểm gửi bình luận
 
             commentForm.addEventListener('submit', function(e) {
                 e.preventDefault();
+                if (!hasViewedComments) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Cảnh báo',
+                        text: 'Vui lòng xem phần bình luận trước khi gửi.',
+                        timer: 2000,
+                        showConfirmButton: false
+                    });
+                    return;
+                }
+
+                const now = Date.now();
+                commentTimes = commentTimes.filter(t => now - t < 2 * 60 * 1000);
+                commentTimes.push(now);
+
                 const content = this.content.value.trim();
                 const sanpham_id = this.sanpham_id.value;
-                if (!content) return alert('Vui lòng nhập nội dung bình luận');
+                if (!content) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Lỗi',
+                        text: 'Vui lòng nhập nội dung bình luận',
+                        timer: 2000,
+                        showConfirmButton: false
+                    });
+                    return;
+                }
+
+                let data = {
+                    sanpham_id,
+                    content
+                };
+
+                // Kiểm tra reCAPTCHA nếu vượt quá 5 lần
+                if (commentTimes.length > 5) {
+                    recaptchaDiv.style.display = 'block';
+                    const recaptchaToken = grecaptcha.getResponse();
+                    if (!recaptchaToken) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Lỗi',
+                            text: 'Vui lòng xác minh CAPTCHA',
+                            timer: 2000,
+                            showConfirmButton: false
+                        });
+                        return;
+                    }
+                    data['g-recaptcha-response'] = recaptchaToken;
+                } else {
+                    recaptchaDiv.style.display = 'none';
+                }
 
                 fetch("{{ route('comment.post') }}", {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': csrfToken,
-                            'Accept': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            sanpham_id,
-                            content
-                        })
-                    })
-                    .then(res => res.json())
-                    .then(data => {
-                        if (data.success) {
-                            const comment = data.comment;
-                            const html = `
-                    <div class="comment-item" data-id="${comment.id}">
-                        <img src="{{ asset('frontend/img/user.jpg') }}" alt="Avatar" class="avatar" />
-                        <div class="comment-content">
-                            <b>${comment.user.hoten}</b>
-                            <p class="content-text">${comment.content}</p>
-                            <small class="time-text">vừa xong</small>
-                            <div class="comment-actions">
-                                <button class="btn-edit">Sửa</button>
-                                <button class="btn-delete">Xóa</button>
-                            </div>
-                        </div>
-                    </div>`;
-                            commentsList.insertAdjacentHTML('afterbegin', html);
-                            this.content.value = '';
-                        } else {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Thất bại',
-                                text: `${data.message || 'Bình luận không thành công'}`,
-                                timer: 2000,
-                                showConfirmButton: false
-                            });
-                        }
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrfToken,
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        grecaptcha.reset();
+                        recaptchaDiv.style.display = 'none';
+                        const comment = data.comment;
+                        const html = `
+                            <div class="comment-item" data-id="${comment.id}">
+                                <img src="{{ asset('frontend/img/user.jpg') }}" alt="Avatar" class="avatar" />
+                                <div class="comment-content">
+                                    <b>${comment.user.hoten}</b>
+                                    <p class="content-text">${comment.content}</p>
+                                    <small class="time-text">vừa xong</small>
+                                    <div class="comment-actions">
+                                        <button class="btn-edit">Sửa</button>
+                                        <button class="btn-delete">Xóa</button>
+                                    </div>
+                                </div>
+                            </div>`;
+                        commentsList.insertAdjacentHTML('afterbegin', html);
+                        this.content.value = '';
+                        if (commentTimes.length > 5) commentTimes = []; // Reset nếu đã xác thực captcha
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Thất bại',
+                            text: `${data.message || 'Bình luận không thành công'}`,
+                            timer: 2000,
+                            showConfirmButton: false
+                        });
+                    }
+                })
+                .catch(error => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Lỗi',
+                        text: 'Đã có lỗi xảy ra, vui lòng thử lại',
+                        timer: 2000,
+                        showConfirmButton: false
                     });
+                });
             });
 
             commentsList.addEventListener('click', function(e) {
@@ -205,20 +275,20 @@
                 if (target.classList.contains('btn-delete')) {
                     if (confirm('Bạn có chắc muốn xóa bình luận này?')) {
                         fetch(`/comments/${commentId}`, {
-                                method: 'DELETE',
-                                headers: {
-                                    'X-CSRF-TOKEN': csrfToken,
-                                    'Accept': 'application/json'
-                                }
-                            })
-                            .then(res => res.json())
-                            .then(data => {
-                                if (data.success) {
-                                    commentItem.remove();
-                                } else {
-                                    alert(data.message || 'Xóa thất bại');
-                                }
-                            });
+                            method: 'DELETE',
+                            headers: {
+                                'X-CSRF-TOKEN': csrfToken,
+                                'Accept': 'application/json'
+                            }
+                        })
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.success) {
+                                commentItem.remove();
+                            } else {
+                                alert(data.message || 'Xóa thất bại');
+                            }
+                        });
                     }
                 }
 
@@ -228,42 +298,60 @@
                     const textarea = document.createElement('textarea');
                     textarea.value = oldContent;
                     textarea.rows = 3;
+                    textarea.classList.add('edit-textarea');
 
                     contentText.replaceWith(textarea);
                     target.textContent = 'Lưu';
                     target.classList.remove('btn-edit');
                     target.classList.add('btn-save');
 
+                    const cancelBtn = document.createElement('button');
+                    cancelBtn.textContent = 'Hủy';
+                    cancelBtn.classList.add('btn-cancel');
+                    target.parentNode.insertBefore(cancelBtn, target.nextSibling);
+
+                    cancelBtn.addEventListener('click', function() {
+                        const p = document.createElement('p');
+                        p.classList.add('content-text');
+                        p.textContent = oldContent;
+                        textarea.replaceWith(p);
+                        target.textContent = 'Sửa';
+                        target.classList.remove('btn-save');
+                        target.classList.add('btn-edit');
+                        cancelBtn.remove();
+                    });
+
                     target.onclick = function() {
                         const newContent = textarea.value.trim();
                         if (!newContent) return alert('Nội dung không được để trống');
 
                         fetch(`/comments/${commentId}`, {
-                                method: 'PUT',
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                    'X-CSRF-TOKEN': csrfToken,
-                                    'Accept': 'application/json'
-                                },
-                                body: JSON.stringify({
-                                    content: newContent
-                                })
+                            method: 'PUT',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': csrfToken,
+                                'Accept': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                content: newContent
                             })
-                            .then(res => res.json())
-                            .then(data => {
-                                if (data.success) {
-                                    const p = document.createElement('p');
-                                    p.classList.add('content-text');
-                                    p.textContent = data.comment.content;
+                        })
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.success) {
+                                const p = document.createElement('p');
+                                p.classList.add('content-text');
+                                p.textContent = data.comment.content;
 
-                                    textarea.replaceWith(p);
-                                    target.textContent = 'Sửa';
-                                    target.classList.remove('btn-save');
-                                    target.classList.add('btn-edit');
-                                } else {
-                                    alert('Cập nhật thất bại');
-                                }
-                            });
+                                textarea.replaceWith(p);
+                                target.textContent = 'Sửa';
+                                target.classList.remove('btn-save');
+                                target.classList.add('btn-edit');
+                                cancelBtn.remove();
+                            } else {
+                                alert('Cập nhật thất bại');
+                            }
+                        });
                     }
                 }
             });
